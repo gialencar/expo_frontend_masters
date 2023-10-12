@@ -4,7 +4,7 @@ import ColorBox from '../components/ColorBox';
 
 const ColorPalette = ({ route }) => {
   const { paletteName, colors } = route.params;
-  console.log(paletteName);
+  console.log(route);
   return (
     <FlatList
       style={styles.container}
