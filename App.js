@@ -30,10 +30,7 @@ const App = () => {
           component={MainStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
-          name="ColorPaletteModal"
-          component={AddNewPaletteModal}
-        />
+        <RootStack.Screen name="AddNewPalette" component={AddNewPaletteModal} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

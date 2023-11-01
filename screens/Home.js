@@ -3,9 +3,10 @@ import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PalettePreview from '../components/PalettePreview';
 import { useEffect } from 'react/cjs/react.development';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
   const [colorPalettes, setColorPalettes] = useState();
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const newColorPalette = route?.params?.newColorPalette;
 
   const fetchColorPalettes = useCallback(() => {
     fetch('https://color-palette-api.kadikraman.now.sh/palettes')
@@ -25,8 +26,14 @@ const Home = ({ navigation }) => {
     fetchColorPalettes();
     setTimeout(() => {
       setIsRefreshing(false);
-    }, 1000);
+    }, 250);
   }, []);
+
+  useEffect(() => {
+    if (newColorPalette) {
+      setColorPalettes((prev) => [newColorPalette, ...prev]);
+    }
+  }, [newColorPalette]);
 
   return (
     <FlatList
@@ -45,7 +52,7 @@ const Home = ({ navigation }) => {
       ListHeaderComponent={
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ColorPaletteModal');
+            navigation.navigate('AddNewPalette');
           }}
         >
           <Text style={styles.modal}>Add a color scheme</Text>
